@@ -1,5 +1,5 @@
 [Package]
-version: 2
+version: 3
 depends: 
 incremental: False
 
@@ -9,8 +9,8 @@ id: 0_metatest
 name: Meta-Test
 description: Testprodukt fuer Erweiterung von opsi-script/winst
 advice: Achtung: funktioniert nur mit angepasstem winst32
-    Maintainer: Jens Boettge <boettge@mpi-halle.mpg.de>
-    Release Date: 2019-08-08
+Maintainer: Jens Boettge <boettge@mpi-halle.mpg.de>
+Release Date: 2019-08-08
 version: 1.0
 priority: 0
 licenseRequired: False
@@ -34,12 +34,12 @@ default: ["5"]
 
 [ProductProperty]
 type: unicode
-name: applic_dir
+name: seconds_to_wait
 multivalue: False
-editable: True
-description: Alternative JAVA_HOME for install4j (Java is still required)
-values: ["", "%%ProgramFilesDir%%", "%ProgramFilesDir%", "%ProgramFilesDir32%", "%ProgramFilesDir64%", "C:\\Applic.32", "C:\\Applic.64"]
-default: ["%ProgramFilesDir%"]
+editable: False
+description: Seconds to wait between temporary report and exit
+values: ["0", "1", "10", "11", "12", "13", "14", "15", "2", "3", "4", "5", "6", "7", "8", "9"]
+default: ["0"]
 
 [ProductProperty]
 type: unicode
@@ -56,9 +56,18 @@ name: report_message
 multivalue: False
 editable: True
 description: Place this info in report message
-values: ["\"all done\"", "\"all your base are belong to us\"", "\"fail: ...epic?\"]", "\"failed: \"wrooong\"", "\"success: everything is fine\"", "\"we have a problem\"", "[\"\""]
+values: ["", "all done", "all your base are belong to us", "fail: ...epic?", "failed: wrooong", "success: everything is fine", "we have a problem"]
 
 [Changelog]
+0_metatest (1.0-3) testing; urgency=low
+
+  * tests reduced to "test_setReport"
+  * new property seconds_to_wait
+  * added readme.md (git)
+
+ -- Jens Boettge <boettge@mpi-halle.mpg.de>  2019-08-08 17:45:23 +0200
+
+
 0_metatest (1.0-2) testing; urgency=low
 
   * added properties for testing modified winst32.exe

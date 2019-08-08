@@ -1,0 +1,75 @@
+[Package]
+version: 2
+depends: 
+incremental: False
+
+[Product]
+type: localboot
+id: 0_metatest
+name: Meta-Test
+description: Testprodukt fuer Erweiterung von opsi-script/winst
+advice: Achtung: funktioniert nur mit angepasstem winst32
+    Maintainer: Jens Boettge <boettge@mpi-halle.mpg.de>
+    Release Date: 2019-08-08
+version: 1.0
+priority: 0
+licenseRequired: False
+productClasses: 
+setupScript: setup.opsiscript
+uninstallScript: 
+updateScript: 
+alwaysScript: 
+onceScript: 
+customScript: 
+userLoginScript: 
+
+[ProductProperty]
+type: unicode
+name: log_level
+multivalue: False
+editable: False
+description: Loglevel for this package (default is 5 )
+values: ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
+default: ["5"]
+
+[ProductProperty]
+type: unicode
+name: applic_dir
+multivalue: False
+editable: True
+description: Alternative JAVA_HOME for install4j (Java is still required)
+values: ["", "%%ProgramFilesDir%%", "%ProgramFilesDir%", "%ProgramFilesDir32%", "%ProgramFilesDir64%", "C:\\Applic.32", "C:\\Applic.64"]
+default: ["%ProgramFilesDir%"]
+
+[ProductProperty]
+type: unicode
+name: exit_with
+multivalue: False
+editable: False
+description: Product should exit with...
+values: ["", "isFatalError", "isSuccess", "isSuspended", "noUpdateScript"]
+default: [""]
+
+[ProductProperty]
+type: unicode
+name: report_message
+multivalue: False
+editable: True
+description: Place this info in report message
+values: ["\"all done\"", "\"all your base are belong to us\"", "\"fail: ...epic?\"]", "\"failed: \"wrooong\"", "\"success: everything is fine\"", "\"we have a problem\"", "[\"\""]
+
+[Changelog]
+0_metatest (1.0-2) testing; urgency=low
+
+  * added properties for testing modified winst32.exe
+
+ -- Jens Boettge <boettge@mpi-halle.mpg.de>  2019-08-08 13:16:27 +0200
+
+
+0_metatest (1.0-1) testing; urgency=low
+
+  * Initial package
+
+ -- Jens Boettge <boettge@mpi-halle.mpg.de>  Wed, 29 May 2019 15:21:08 +0000
+
+

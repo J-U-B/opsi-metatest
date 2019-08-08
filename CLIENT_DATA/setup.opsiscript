@@ -1,0 +1,84 @@
+[actions]
+;-----------------------------------------------------------
+; Variables
+;-----------------------------------------------------------
+defVar $LogLevel$
+defVar $AppDir$
+defVar $res$
+defVar $ExitWith$
+defVar $ReportMessage$
+
+;-----------------------------------------------------------
+; Init
+;-----------------------------------------------------------
+set $LogLevel$ = getProductProperty("log_level","default")
+if ($LogLevel$ = "default") 
+	set $LogLevel$ = "5"
+endif
+setLogLevel = $LogLevel$
+importlib "helpers.opsifunc"
+
+;sub__test_callProduct
+;sub__test_envTest
+sub__test_setReport
+
+;-----------------------------------------------------------
+; Test modified opsi-winst
+;-----------------------------------------------------------
+[sub__test_callProduct]
+; comment "Aufruf neue Funktion in opsi-script: CALLPRODUCT"
+; CallProduct "meta"
+
+
+;-----------------------------------------------------------
+; Environment test
+;-----------------------------------------------------------
+[sub__test_envTest]
+set $AppDir$ = getProductProperty("applic_dir","")
+comment "application directory: [" + $AppDir$+ "]"
+set $AppDir$ = $AppDir$
+comment "..repeat: [" + $AppDir$+ "]"
+
+
+;-----------------------------------------------------------
+; Test opsiServiceCall - set report
+;-----------------------------------------------------------
+[sub__test_setReport]
+set $ExitWith$ = getProductProperty("exit_with", "")
+set $ReportMessage$ = getProductProperty("report_message","")
+
+set $res$ = currentProductSetReport("Temporary Message")
+
+if $ReportMessage$ = ""
+	Switch $ExitWith$
+		Case "isSuccess"
+			isSuccess
+		EndCase
+		Case "isFatalError"
+			isFatalError
+		EndCase
+		Case "isSuspended"
+			isSuspended
+		EndCase
+		Case "noUpdateScript"
+			noUpdateScript
+		EndCase
+	EndSwitch
+else
+	sleepSeconds 3
+	comment "Trying to exit with: [" + $ExitWith$ + "]"
+	Switch $ExitWith$
+		Case "isSuccess"
+			isSuccess $ReportMessage$
+		EndCase
+		Case "isFatalError"
+			isFatalError $ReportMessage$
+		EndCase
+		Case "isSuspended"
+			isSuspended $ReportMessage$
+		EndCase
+		Case "noUpdateScript"
+			noUpdateScript $ReportMessage$
+		EndCase
+	EndSwitch
+endif
